@@ -12,7 +12,9 @@ import java.util.Scanner;
  */
 public class CommandReader {
 
-    public CommandReader(File commandFile) throws FileNotFoundException {
+    public CommandReader(int memSize, int hashSize, File commandFile)
+        throws FileNotFoundException {
+        
         Scanner scan = new Scanner(commandFile);
         while (scan.hasNextLine()) {
             String command = scan.nextLine();

@@ -37,15 +37,13 @@ public class MemMan {
      */
     public static void main(int memSize, int hashSize, String[] args)
         throws FileNotFoundException {
-        // initialize memory size
-        // initialize hash table size
 
         String str = "command-file.txt";
         if (args.length >= 1) {
             str = args[0];
         }
         File file = new File(str);
-        new CommandReader(file);
+        new CommandReader(memSize, hashSize, file);
 
     }
 
