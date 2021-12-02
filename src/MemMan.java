@@ -1,13 +1,12 @@
-/**
- * {Project Description Here}
- */
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
- * The class containing the main method. Extend with your code, and update this
- * docblock
+ * The class containing the main method and takes in the parameters
+ * for memory size, hash table size, and the command file to read.
  *
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author Justin Shelton and Peyton Dexter
+ * @version 12.1.2021
  */
 
 // On my honor:
@@ -34,24 +33,20 @@ public class MemMan {
     /**
      * @param args
      *            Command line parameters
+     * @throws FileNotFoundException
      */
-    public static void main(String[] args) {
-        // This is the main file for the program.
+    public static void main(int memSize, int hashSize, String[] args)
+        throws FileNotFoundException {
+        // initialize memory size
+        // initialize hash table size
+
+        String str = "command-file.txt";
+        if (args.length >= 1) {
+            str = args[0];
+        }
+        File file = new File(str);
+        new CommandReader(file);
+
     }
-    
-    
-    
-    /**
-     *
-     * 
-     * git hub stuff
-     *
-     *
-     * I am here
-     *
-     *
-     */
-    
-    
-    
+
 }

@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import student.TestCase;
 
 /**
@@ -18,10 +19,11 @@ public class MemManTest extends TestCase {
 
     /**
      * Get code coverage of the class declaration.
+     * @throws FileNotFoundException 
      */
-    public void testRInit() {
+    public void testRInit() throws FileNotFoundException {
         MemMan manager = new MemMan();
         assertNotNull(manager);
-        MemMan.main(null);
+        MemMan.main(0, 0, null);
     }
 }
