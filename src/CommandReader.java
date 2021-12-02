@@ -16,10 +16,15 @@ public class CommandReader {
         throws FileNotFoundException {
         
         Scanner scan = new Scanner(commandFile);
+        
+        
         while (scan.hasNextLine()) {
+            
             String command = scan.nextLine();
             String[] word = command.trim().split("\\s+", -2);
 
+            
+            
             if (word[0].contains("update")) {
                 if (word[1].contains("add")) {
                     System.out.println("update add");
@@ -28,12 +33,24 @@ public class CommandReader {
                     System.out.println("update delete");
                 }
             }
+            
+            
+            
+            
             else if (word[0].contains("add")) {
                 System.out.println("add");
             }
+            
+            
+            
+            
             else if (word[0].contains("delete")) {
                 System.out.println("delete");
             }
+            
+            
+            
+            
             else if (word[0].contains("print")) {
                 if (word[1].contains("hashtable")) {
                     System.out.println("print hashtable");
@@ -42,6 +59,9 @@ public class CommandReader {
                     System.out.println("print blocks");
                 }
             }
+            
+            
+            
 
         }
     }

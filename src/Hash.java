@@ -47,20 +47,50 @@ public class Hash<T, K> implements HashADT<T, K> {
 
     
     // ~ Public Methods  ............................................................
+    /**
+     * 
+     */
     @Override
-    public boolean put() {
+    public boolean put(T inElem) {
         // TODO Auto-generated method stub
+        
+        //get key
+        int location = h(inElem.toString(), maxCapacity); 
+        
+        //if it already exists
+        if(HT[location].equals(inElem)) {
+            System.out.println("this is a duplicate"); 
+        }
+        //insert into hash table
+        else {
+            HT[location] = inElem; 
+        }
+        
         return false;
     }
 
+    
+    /**
+     * 
+     */
     @Override
     public T get(K key) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    
+    /**
+     * 
+     */
+    @SuppressWarnings("unchecked")
     @Override
     public T[] doubleSize() {
+        
+        T[] newArray = (T[])new Object[maxCapacity * 2];
+        
+        System.out.println(newArray); 
+        
         // TODO Auto-generated method stub
         return null;
     }

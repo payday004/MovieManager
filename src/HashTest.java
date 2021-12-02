@@ -24,7 +24,7 @@ public class HashTest extends TestCase {
         
         int maxSize  = 500; 
         
-        Hash myHash = new Hash(maxSize);
+        Hash<String, String> myHash = new Hash<String, String>(maxSize);
         assertEquals(myHash.h("aaaabbbb", 101), 75);
         assertEquals(myHash.h("aaaabbb", 101), 1640219587 % 101);
     }

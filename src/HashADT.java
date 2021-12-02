@@ -1,15 +1,16 @@
 
 public interface HashADT<T, K> {
+
     /**
-     * put element into hash table
-     * 
-     * @return Returns true element was inserted
+     * inserts element in to hash table
+     * @param inElem element to be inserted 
+     * @return true if inserted
      */
-    public boolean put();
+    public boolean put(T inElem);
 
 
     /**
-     * 
+     * gets element from hash table given key
      * @param key
      * @return the element represented by the key
      */
