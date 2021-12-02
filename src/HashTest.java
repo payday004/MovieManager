@@ -5,8 +5,8 @@ import student.TestCase;
  * Test the hash function (you should throw this away for your project and write
  * your own tests)
  *
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author Justin Shelton and Peyton Dexter
+ * @version 12.2.2021
  */
 public class HashTest extends TestCase {
     /**

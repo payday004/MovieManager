@@ -1,4 +1,10 @@
-
+/**
+ * 
+ * @author Justin Shelton and Peyton Dexter
+ * @version 12.2.2021
+ * @param <T> element
+ * @param <K> key
+ */
 public interface HashADT<T, K> {
 
     /**

@@ -1,7 +1,7 @@
 /**
  * record class
- * @author pd_de
- *
+ * @author Peyton Dexter and Justin Shelton
+ * @version 12.2.2021
  */
 public class Record {
     
@@ -11,8 +11,8 @@ public class Record {
     
     // ~ Constructor ............................................................
     /**
-     * 
-     * @param inData
+     * constructor for record
+     * @param inData record data
      */
     public Record(String inData) {
         this.data = inData; 
@@ -21,7 +21,8 @@ public class Record {
     // ~ Public Methods ............................................................
     
     /**
-     * 
+     * returns the records data as a string
+     * @return string 
      */
     @Override
     public String toString() {

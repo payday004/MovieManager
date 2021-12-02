@@ -1,7 +1,7 @@
 /**
  * Stub for hash table class. Extend with your code, and update this docblock
  *
- * @author Peyton Dexter 
+ * @author Peyton Dexter and Justin Shelton
  * @version 12/1/2021
  */
 
