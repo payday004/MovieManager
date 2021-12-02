@@ -24,6 +24,8 @@ public class MemManTest extends TestCase {
     public void testRInit() throws FileNotFoundException {
         MemMan manager = new MemMan();
         assertNotNull(manager);
-        MemMan.main(0, 0, null);
+        String[] str = new String[1];
+        str[0] = "sampleInput.txt";
+        MemMan.main(0, 0, str);
     }
 }
