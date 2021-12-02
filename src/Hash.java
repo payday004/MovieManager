@@ -1,21 +1,76 @@
 /**
  * Stub for hash table class. Extend with your code, and update this docblock
  *
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author Peyton Dexter 
+ * @version 12/1/2021
  */
 
-public class Hash {
+public class Hash<T, K> implements HashADT<T, K> {
+    
+    // ~ Fields ............................................................
+    private int maxCapacity; 
+    private int usage; 
+    
+    private T[] HT; 
+    
 
+    // ~ Constructor ............................................................
     /**
      * Create a new Hash object.
      * 
      */
-    public Hash() {
-        // Nothing here yet
+    @SuppressWarnings("unchecked")
+    public Hash(int maxCapacity) {
+        
+        this.maxCapacity = maxCapacity; 
+        
+        this.usage = 0; 
+        
+        HT = (T[])new Object[maxCapacity];
+        
     }
 
+    // ~ Getters and Setters  ............................................................
+    /**
+     * @return usage 
+     */
+    public int getUsage() {
+        return usage; 
+    }
+    
+    /**
+     * @return maxCapacity
+     */
+    public int getMaxCap() {
+        return maxCapacity; 
+    }
 
+    
+    // ~ Public Methods  ............................................................
+    @Override
+    public boolean put() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public T get(K key) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public T[] doubleSize() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
+    
+    
+    
+    
+    
+    // ~ Hash Function  ............................................................
     /**
      * Compute the hash function. Uses the "sfold" method from the OpenDSA
      * module on hash functions
@@ -50,4 +105,9 @@ public class Hash {
 
         return (int)(Math.abs(sum) % m);
     }
+
+
+
+
+
 }

@@ -21,8 +21,10 @@ public class HashTest extends TestCase {
      * Test the hash function
      */
     public void testh() {
-
-        Hash myHash = new Hash();
+        
+        int maxSize  = 500; 
+        
+        Hash myHash = new Hash(maxSize);
         assertEquals(myHash.h("aaaabbbb", 101), 75);
         assertEquals(myHash.h("aaaabbb", 101), 1640219587 % 101);
     }
