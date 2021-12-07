@@ -53,33 +53,39 @@ public class Hash<T, K> implements HashADT<T, K> {
     @Override
     public boolean put(T inElem) {
         
+        //get location from key 
+        int location = h(inElem.toString(), maxCapacity); 
+        
+        System.out.println("location:  " +  location );
+        
+        //duplicate check
+        if(HT[location] != null && HT[location].equals(inElem)) {
+            System.out.println("DUPLICATE");
+            return false; 
+        }
+        
         //need to double size check
         if(usage >= maxCapacity/2) {
             HT = doubleSize(); 
         }
         
-        
-        //get location from key 
-        int location = h(inElem.toString(), maxCapacity); 
-        
-        
-        
+
         //somehting already exists
-        if(HT[location] != null) {
+        if(HT[location] != null) { 
             
-            //duplicate check
-            if(HT[location].equals(inElem)) {
-                System.out.println("DUPLICATE");
-                return false; 
+            System.out.println("TIME TO PROBE"); 
+            
+            //quadradic probe
+            int probe = 0; 
+            while(HT[(location + probe*probe) % maxCapacity] != null) { 
+                probe++; 
             }
             
-            //probe check
-            else {
-                System.out.println("TIME TO PROBE"); 
-                
-                // TODO needs to return true, add at probe, and update usage
-                return false; 
-            }
+            //insert element and update usage 
+            HT[(location + probe*probe) % maxCapacity] = inElem; 
+            usage++; 
+
+            return true; 
         }
         
         //insert into hash table + update usage
@@ -149,6 +155,73 @@ public class Hash<T, K> implements HashADT<T, K> {
     }
     
     
+
+    
+    
+    
+    /**
+     * 
+     */
+    public T remove(K key) {
+        
+        //get location
+        int location = h((String)key, maxCapacity); 
+        
+        // null check nothing to be removed
+        if(HT[location] == null) {
+            System.out.println("THIS DOES NOT EXIST");
+            return null; 
+        }
+        
+        // exists but not same element -> colision resolution
+        if(HT[location].toString() != key) {
+            System.out.println("COLISION RESOLUTION");
+            
+            //probe
+            int probe = 0; 
+            //while current position != null and != key (target)  
+            while(HT[(location + probe*probe) % maxCapacity] != null && !HT[(location + probe*probe) % maxCapacity].toString().equals(key)) {
+                //inc probe
+                probe++; 
+            }
+            
+            
+            //if found key
+            if(HT[(location + probe*probe) % maxCapacity].toString().equals(key)) {
+                //copy element
+                T outElement = HT[(location + probe*probe) % maxCapacity];
+                //remove element
+                HT[(location + probe*probe) % maxCapacity] = null; 
+                usage--; 
+                //rehash
+                HT = rehash(); 
+                //return 
+                return outElement; 
+            }
+            
+            //does not exist
+            else {
+                return null; 
+            }
+            
+
+        }
+        
+        // exists and correct element
+        else {
+            //copy 
+            T element = HT[location]; 
+            //remove
+            HT[location] = null; 
+            usage--; 
+            //rehash
+            HT = rehash(); 
+            //return
+            return element; 
+        }
+    }
+    
+    
     
     /**
      * 
@@ -214,6 +287,32 @@ public class Hash<T, K> implements HashADT<T, K> {
         }
 
         return (int)(Math.abs(sum) % m);
+    }
+    
+    
+    
+    // ~ Private Functions  ............................................................
+    /**
+     * 
+     * @return
+     */
+    private T[] rehash() {
+
+        //temp hash object
+        Hash<T, K> outHash = new Hash<T, K>(maxCapacity); 
+
+        //for all elements in old array 
+        for(int i = 0; i < HT.length; i++) {
+            //if not null
+            if(HT[i] != null) {
+                
+                //add to new hash
+                outHash.put(HT[i]);                   
+            }
+        }
+
+        //return array
+        return outHash.HT;
     }
 
 

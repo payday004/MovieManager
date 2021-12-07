@@ -49,10 +49,10 @@ public class CommandReader {
                 
                 System.out.println(command);
                 
-                System.out.println(getAddName(word));
+                System.out.println(getName(word));
                 
                 //add record into database
-                dB.add(new Record(getAddName(word)));    
+                dB.add(new Record(getName(word)));    
             }
             
             
@@ -60,6 +60,13 @@ public class CommandReader {
             //delete line
             else if (word[0].contains("delete")) {
                 //System.out.println(command);
+                
+                System.out.println(command);
+                
+                System.out.println(getName(word));
+                
+                //delete record from database
+                dB.delete(new Record(getName(word)));
             }
             
             
@@ -96,7 +103,7 @@ public class CommandReader {
      * @param inArry
      * @return
      */
-    private String getAddName(String[] inArry) {
+    private String getName(String[] inArry) {
         
         //return string 
         String outStr = "";

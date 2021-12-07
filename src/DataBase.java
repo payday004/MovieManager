@@ -34,7 +34,10 @@ public class DataBase {
     /**
      * 
      */
-    public void delete() {
+    public void delete(Record inRecord) {
+        
+        System.out.println(hashTable.remove(inRecord.toString()));
+        
 
     }
     
