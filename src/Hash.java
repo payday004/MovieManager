@@ -54,17 +54,26 @@ public class Hash<T, K> implements HashADT<T, K> {
     public boolean put(T inElem) {
         // TODO Auto-generated method stub
         
-        //get key
+        //need to double size check
+        if(usage >= maxCapacity/2) {
+            HT = doubleSize(); 
+            
+        }
+        
+        //get location from key 
         int location = h(inElem.toString(), maxCapacity); 
         
-        //if it already exists
-        if(HT[location].equals(inElem)) {
-            System.out.println("this is a duplicate"); 
+        //somehting already exists
+        if(HT[location] != null) {
+            System.out.println("time to probe"); 
         }
         //insert into hash table
         else {
             HT[location] = inElem; 
         }
+        
+        //update usage
+        usage++; 
         
         return false;
     }
@@ -75,8 +84,28 @@ public class Hash<T, K> implements HashADT<T, K> {
      */
     @Override
     public T get(K key) {
-        // TODO Auto-generated method stub
-        return null;
+        
+        
+        //get location
+        int location = h((String)key, maxCapacity); 
+        
+        // doesnt exist -> return null
+        if(HT[location] == null) {
+            return null; 
+        }
+        
+        // exists but not same element -> colision resolution
+        if(HT[location].toString() != key) {
+            System.out.println("COLISION RESOLUTION");
+            
+            return null; 
+        }
+        
+        // exists and correct element
+        else {
+            return HT[location]; 
+        }
+        
     }
 
     
@@ -87,12 +116,57 @@ public class Hash<T, K> implements HashADT<T, K> {
     @Override
     public T[] doubleSize() {
         
-        T[] newArray = (T[])new Object[maxCapacity * 2];
+        System.out.println("DOUBLE SIZE"); 
         
-        System.out.println(newArray); 
+        //temp hash object
+        Hash<T, K> outHash = new Hash<T, K>(maxCapacity * 2); 
+
         
-        // TODO Auto-generated method stub
-        return null;
+        //for all elements in old array 
+        for(int i = 0; i < HT.length; i++) {
+            //if not null
+            if(HT[i] != null) {
+                
+                //add to new hash
+                outHash.put(HT[i]);                   
+            }
+        }
+        
+        
+        //System.out.println(outHash); 
+        
+        //update max capacity 
+        maxCapacity = maxCapacity * 2; 
+        
+        //return array
+        return outHash.HT;
+    }
+    
+    
+    
+    /**
+     * 
+     */
+    @Override
+    public String toString() {
+        
+        //return string
+        String outStr = "";
+        System.out.println(HT.length); 
+        //for each element in HT add to string
+        for(int i = 0; i < HT.length; i++) {
+            //null check
+            if(HT[i] == null) {
+                outStr = outStr + "null\n";                 
+            }
+            //add value
+            else {
+                outStr = outStr + HT[i].toString() + "\n"; 
+            }
+                     
+        }
+        
+        return outStr; 
     }
     
     
