@@ -56,11 +56,11 @@ public class Hash<T, K> implements HashADT<T, K> {
         //get location from key 
         int location = h(inElem.toString(), maxCapacity); 
         
-        System.out.println("location:  " +  location );
+        //System.out.println("location:  " +  location );
         
         //duplicate check
         if(HT[location] != null && HT[location].equals(inElem)) {
-            System.out.println("DUPLICATE");
+            //System.out.println("DUPLICATE");
             return false; 
         }
         
@@ -73,7 +73,7 @@ public class Hash<T, K> implements HashADT<T, K> {
         //somehting already exists
         if(HT[location] != null) { 
             
-            System.out.println("TIME TO PROBE"); 
+            //System.out.println("TIME TO PROBE"); 
             
             //quadradic probe
             int probe = 0; 
@@ -114,8 +114,27 @@ public class Hash<T, K> implements HashADT<T, K> {
         
         // exists but not same element -> colision resolution
         if(HT[location].toString() != key) {
-            System.out.println("COLISION RESOLUTION");
-            return null; 
+
+            //probe
+            int probe = 0; 
+            //while current position != null and != key (target)  
+            while(HT[(location + probe*probe) % maxCapacity] != null && !HT[(location + probe*probe) % maxCapacity].toString().equals(key)) {
+                //inc probe
+                probe++; 
+            }
+            
+            
+            //if found key
+            if(HT[(location + probe*probe) % maxCapacity].toString().equals(key)) {
+                
+                //return element
+                return HT[(location + probe*probe) % maxCapacity];
+            }
+            
+            //does not exist
+            else {
+                return null; 
+            }
         }
         
         // exists and correct element
@@ -124,40 +143,7 @@ public class Hash<T, K> implements HashADT<T, K> {
         }
     }
 
-    
-    
-    /**
-     * 
-     */
-    @Override
-    public T[] doubleSize() {
-        
-        System.out.println("DOUBLE SIZE"); 
-        
-        //temp hash object
-        Hash<T, K> outHash = new Hash<T, K>(maxCapacity * 2); 
 
-        //for all elements in old array 
-        for(int i = 0; i < HT.length; i++) {
-            //if not null
-            if(HT[i] != null) {
-                
-                //add to new hash
-                outHash.put(HT[i]);                   
-            }
-        }
-
-        //update max capacity 
-        maxCapacity = maxCapacity * 2; 
-        
-        //return array
-        return outHash.HT;
-    }
-    
-    
-
-    
-    
     
     /**
      * 
@@ -169,13 +155,13 @@ public class Hash<T, K> implements HashADT<T, K> {
         
         // null check nothing to be removed
         if(HT[location] == null) {
-            System.out.println("THIS DOES NOT EXIST");
+            //System.out.println("THIS DOES NOT EXIST");
             return null; 
         }
         
         // exists but not same element -> colision resolution
         if(HT[location].toString() != key) {
-            System.out.println("COLISION RESOLUTION");
+            //System.out.println("COLISION RESOLUTION");
             
             //probe
             int probe = 0; 
@@ -183,6 +169,13 @@ public class Hash<T, K> implements HashADT<T, K> {
             while(HT[(location + probe*probe) % maxCapacity] != null && !HT[(location + probe*probe) % maxCapacity].toString().equals(key)) {
                 //inc probe
                 probe++; 
+                
+                System.out.println(location); 
+                System.out.println(probe*probe); 
+                System.out.println(maxCapacity); 
+                System.out.println((location + probe*probe) % maxCapacity); 
+                System.out.println("\n"); 
+                
             }
             
             
@@ -219,6 +212,90 @@ public class Hash<T, K> implements HashADT<T, K> {
             //return
             return element; 
         }
+    }
+    
+    
+    
+    /**
+     * 
+     */
+    public boolean update(K key, T elem) {
+        
+        //get location
+        int location = h((String)key, maxCapacity); 
+        
+        // null check nothing to be removed
+        if(HT[location] == null) {
+            //System.out.println("THIS DOES NOT EXIST");
+            return false; 
+        }
+        
+        // exists but not same element -> colision resolution
+        if(HT[location].toString() != key) {
+            //System.out.println("COLISION RESOLUTION");
+            
+            //probe
+            int probe = 0; 
+            //while current position != null and != key (target)  
+            while(HT[(location + probe*probe) % maxCapacity] != null && !HT[(location + probe*probe) % maxCapacity].toString().equals(key)) {
+                //inc probe
+                probe++; 
+            }
+            
+            
+            //if found key
+            if(HT[(location + probe*probe) % maxCapacity].toString().equals(key)) {
+
+                //update element
+                HT[(location + probe*probe) % maxCapacity] = elem; 
+                
+                return true; 
+            }
+            
+            //does not exist
+            else {
+                return false; 
+            }
+            
+
+        }
+        
+        // exists and correct element
+        else {
+            //update and return
+            HT[location] = elem; 
+            return true; 
+        }
+    }
+    
+
+    
+    /**
+     * 
+     */
+    @Override
+    public T[] doubleSize() {
+        
+        //System.out.println("DOUBLE SIZE"); 
+        
+        //temp hash object
+        Hash<T, K> outHash = new Hash<T, K>(maxCapacity * 2); 
+
+        //for all elements in old array 
+        for(int i = 0; i < HT.length; i++) {
+            //if not null
+            if(HT[i] != null) {
+                
+                //add to new hash
+                outHash.put(HT[i]);                   
+            }
+        }
+
+        //update max capacity 
+        maxCapacity = maxCapacity * 2; 
+        
+        //return array
+        return outHash.HT;
     }
     
     

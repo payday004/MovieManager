@@ -1,0 +1,5 @@
+     print hashtable
+     add   Death     Note  
+     print hashtable
+         update add   Death   Note<SEP>  Genre  <SEP> Anime
+                 print hashtable

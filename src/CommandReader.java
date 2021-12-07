@@ -33,12 +33,16 @@ public class CommandReader {
                 
                 // update add 
                 if (word[1].contains("add")) {
-                    //System.out.println(command);
+                    System.out.println(command.trim());
+
+                    //pass to dB to handle implementation
+                    dB.updateAdd(getUpdateInfo(word));
                 }
                 
                 // update delete
                 else {
                     //System.out.println(command);
+                    
                 }
             }
             
@@ -46,10 +50,8 @@ public class CommandReader {
             
             // add line
             else if (word[0].contains("add")) {
-                
-                System.out.println(command);
-                
-                System.out.println(getName(word));
+                System.out.println(command.trim());
+                //System.out.println(getName(word));
                 
                 //add record into database
                 dB.add(new Record(getName(word)));    
@@ -59,11 +61,8 @@ public class CommandReader {
             
             //delete line
             else if (word[0].contains("delete")) {
-                //System.out.println(command);
-                
-                System.out.println(command);
-                
-                System.out.println(getName(word));
+                System.out.println(command.trim());
+                //System.out.println(getName(word));
                 
                 //delete record from database
                 dB.delete(new Record(getName(word)));
@@ -77,8 +76,7 @@ public class CommandReader {
                 // print hashtable
                 if (word[1].contains("hashtable")) {
                     //echo command
-                    System.out.println(command);
-                    
+                    System.out.println(command.trim());
                     //print HashTable
                     dB.printHash();
                 }
@@ -116,6 +114,38 @@ public class CommandReader {
         
         //return string with leading and trailing white space removed
         return outStr.trim(); 
+    }
+    
+    
+    /**
+     * 
+     * @param inArry
+     * @return output array where:
+     *          index 0 is the element to be changed
+     *          index 1 is the field_name 
+     *          index 2 is the field_value 
+     */
+    private String[] getUpdateInfo(String[] inArry) {
+        
+        //return string 
+        String outStr = "";
+        
+        //for all string after add
+        for(int i = 2; i < inArry.length; i++) {
+            //add to return string
+            outStr += inArry[i].trim() + " "; 
+        }
+        
+        //return string with leading and trailing white space removed
+        String[] outStrArray = outStr.trim().split("<SEP>"); 
+        
+        //add to output array and trim each entry
+        for(int i = 0; i < outStrArray.length; i++) {
+            outStrArray[i] = outStrArray[i].trim(); 
+            //System.out.println(outStrArray[i] + "|"); 
+        }
+        
+        return outStrArray; 
     }
     
 }

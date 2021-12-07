@@ -39,9 +39,9 @@ public class MemMan {
         throws FileNotFoundException {
 
         //printing arguments
-        System.out.println(args[0]);
-        System.out.println(args[1]);
-        System.out.println(args[2]);
+        //System.out.println(args[0]);
+        //System.out.println(args[1]);
+        //System.out.println(args[2]);
         
         // reading command line argument 
         int memSize = Integer.parseInt(args[0]);
