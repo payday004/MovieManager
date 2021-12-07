@@ -52,39 +52,51 @@ public class Hash<T, K> implements HashADT<T, K> {
      */
     @Override
     public boolean put(T inElem) {
-        // TODO Auto-generated method stub
         
         //need to double size check
         if(usage >= maxCapacity/2) {
             HT = doubleSize(); 
-            
         }
+        
         
         //get location from key 
         int location = h(inElem.toString(), maxCapacity); 
         
+        
+        
         //somehting already exists
         if(HT[location] != null) {
-            System.out.println("time to probe"); 
+            
+            //duplicate check
+            if(HT[location].equals(inElem)) {
+                System.out.println("DUPLICATE");
+                return false; 
+            }
+            
+            //probe check
+            else {
+                System.out.println("TIME TO PROBE"); 
+                
+                // TODO needs to return true, add at probe, and update usage
+                return false; 
+            }
         }
-        //insert into hash table
+        
+        //insert into hash table + update usage
         else {
             HT[location] = inElem; 
+            usage++; 
+            return true; 
         }
-        
-        //update usage
-        usage++; 
-        
-        return false;
     }
 
+    
     
     /**
      * 
      */
     @Override
     public T get(K key) {
-        
         
         //get location
         int location = h((String)key, maxCapacity); 
@@ -97,7 +109,6 @@ public class Hash<T, K> implements HashADT<T, K> {
         // exists but not same element -> colision resolution
         if(HT[location].toString() != key) {
             System.out.println("COLISION RESOLUTION");
-            
             return null; 
         }
         
@@ -105,14 +116,13 @@ public class Hash<T, K> implements HashADT<T, K> {
         else {
             return HT[location]; 
         }
-        
     }
 
+    
     
     /**
      * 
      */
-    @SuppressWarnings("unchecked")
     @Override
     public T[] doubleSize() {
         
@@ -121,7 +131,6 @@ public class Hash<T, K> implements HashADT<T, K> {
         //temp hash object
         Hash<T, K> outHash = new Hash<T, K>(maxCapacity * 2); 
 
-        
         //for all elements in old array 
         for(int i = 0; i < HT.length; i++) {
             //if not null
@@ -131,10 +140,7 @@ public class Hash<T, K> implements HashADT<T, K> {
                 outHash.put(HT[i]);                   
             }
         }
-        
-        
-        //System.out.println(outHash); 
-        
+
         //update max capacity 
         maxCapacity = maxCapacity * 2; 
         
@@ -152,7 +158,9 @@ public class Hash<T, K> implements HashADT<T, K> {
         
         //return string
         String outStr = "";
-        System.out.println(HT.length); 
+        System.out.println("max capacity:  " + HT.length); 
+        System.out.println("usage       :  " + usage);
+        
         //for each element in HT add to string
         for(int i = 0; i < HT.length; i++) {
             //null check
@@ -162,10 +170,8 @@ public class Hash<T, K> implements HashADT<T, K> {
             //add value
             else {
                 outStr = outStr + HT[i].toString() + "\n"; 
-            }
-                     
+            }             
         }
-        
         return outStr; 
     }
     

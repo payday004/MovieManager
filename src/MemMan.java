@@ -35,14 +35,23 @@ public class MemMan {
      *            Command line parameters
      * @throws FileNotFoundException
      */
-    public static void main(int memSize, int hashSize, String[] args)
+    public static void main(String[] args)
         throws FileNotFoundException {
 
-        String str = "command-file.txt";
-        if (args.length >= 1) {
-            str = args[0];
-        }
+        //printing arguments
+        System.out.println(args[0]);
+        System.out.println(args[1]);
+        System.out.println(args[2]);
+        
+        // reading command line argument 
+        int memSize = Integer.parseInt(args[0]);
+        int hashSize = Integer.parseInt(args[1]);
+        String str = args[2]; 
+        
+        //open file
         File file = new File(str);
+        
+        //run CommandReader driver
         new CommandReader(memSize, hashSize, file);
 
     }

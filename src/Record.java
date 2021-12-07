@@ -29,4 +29,23 @@ public class Record {
         return data; 
     }
     
+    
+    /**
+     * 
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (o.getClass() == this.getClass()) {
+            Record otherR = (Record)o;
+            return data.equals(otherR.data);
+        }
+        return false;
+    }
+    
 }

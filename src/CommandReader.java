@@ -17,52 +17,98 @@ public class CommandReader {
         
         Scanner scan = new Scanner(commandFile);
         
+        //database object
+        DataBase dB = new DataBase(hashSize, memSize); 
         
+        //for each line in input file 
         while (scan.hasNextLine()) {
             
+            //split strings
             String command = scan.nextLine();
             String[] word = command.trim().split("\\s+", -2);
 
             
-            
+            // update lines
             if (word[0].contains("update")) {
+                
+                // update add 
                 if (word[1].contains("add")) {
-                    System.out.println("update add");
+                    //System.out.println(command);
                 }
-                else { // update delete block
-                    System.out.println("update delete");
+                
+                // update delete
+                else {
+                    //System.out.println(command);
                 }
             }
             
             
             
-            
+            // add line
             else if (word[0].contains("add")) {
-                System.out.println("add");
+                
+                System.out.println(command);
+                
+                System.out.println(getAddName(word));
+                
+                //add record into database
+                dB.add(new Record(getAddName(word)));    
             }
             
             
             
-            
+            //delete line
             else if (word[0].contains("delete")) {
-                System.out.println("delete");
+                //System.out.println(command);
             }
             
             
             
-            
-            else if (word[0].contains("print")) {
+            // print lines
+            else if (word[0].contains("print")) { 
+                
+                // print hashtable
                 if (word[1].contains("hashtable")) {
-                    System.out.println("print hashtable");
+                    //echo command
+                    System.out.println(command);
+                    
+                    //print HashTable
+                    dB.printHash();
                 }
-                else { // print memory blocks block of code
-                    System.out.println("print blocks");
+                
+                //print memory block
+                else {
+                    //System.out.println(command);
                 }
             }
-            
-            
-            
-
+                        
+            System.out.println("\n");
         }
+        
+        // close scanner 
+        scan.close();
     }
+    
+    
+    
+    /**
+     * helper method to get Canonical Name
+     * @param inArry
+     * @return
+     */
+    private String getAddName(String[] inArry) {
+        
+        //return string 
+        String outStr = "";
+        
+        //for all string after add
+        for(int i = 1; i < inArry.length; i++) {
+            //add to return string
+            outStr += inArry[i].trim() + " "; 
+        }
+        
+        //return string with leading and trailing white space removed
+        return outStr.trim(); 
+    }
+    
 }
