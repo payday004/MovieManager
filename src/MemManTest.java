@@ -19,16 +19,17 @@ public class MemManTest extends TestCase {
 
     /**
      * Get code coverage of the class declaration.
-     * @throws FileNotFoundException 
+     * 
+     * @throws FileNotFoundException
      */
     public void testRInit() throws FileNotFoundException {
         MemMan manager = new MemMan();
         assertNotNull(manager);
         String[] str = new String[3];
         str[0] = "4";
-        str[1] = "4"; 
+        str[1] = "4";
         str[2] = "sampleInput.txt";
-        
+
         MemMan.main(str);
     }
 }

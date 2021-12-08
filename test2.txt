@@ -1,0 +1,4 @@
+add Death Note
+    update add   Death   Note<SEP>  Genre  <SEP> Animation
+update delete Death Note<SEP>Genre
+

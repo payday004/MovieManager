@@ -1,33 +1,39 @@
 /**
+ * hash abstract data type
  * 
- * @author Justin Shelton and Peyton Dexter
- * @version 12.2.2021
- * @param <T> element
- * @param <K> key
+ * @author pd_de
+ *
+ * @param <T>
+ *            data
+ * @param <K>
+ *            key
  */
 public interface HashADT<T, K> {
 
     /**
-     * inserts element in to hash table
-     * @param inElem element to be inserted 
-     * @return true if inserted
+     * puts elemnt into hash table
+     * 
+     * @param inElem
+     *            element to be placed in table
+     * @return true if inserted, false if not
      */
     public boolean put(T inElem);
 
 
     /**
-     * gets element from hash table given key
+     * get an element with corresponding key from hash table
+     * 
      * @param key
-     * @return the element represented by the key
+     *            key of element to be retrieved
+     * @return the corresponding element
      */
     public T get(K key);
 
 
     /**
-     * rehashes all the elements in the hash table into a hash table twice the
-     * size
+     * doubles size of array
      * 
-     * @return the table that is twice the size with all elements
+     * @return doubled size of array
      */
     public T[] doubleSize();
 

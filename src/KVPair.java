@@ -1,21 +1,21 @@
 /**
+ * KVPair class
  * 
  * @author pd_de
  *
  * @param <K>
+ *            key
  * @param <V>
+ *            value
  */
 public class KVPair<K, V> {
 
-    
     // ~ Fields ............................................................
 
     private K key;
 
     private V value;
 
-    
-    
     // ~ Constructor .......................................................
     /**
      * Create a KVPair object with the specified parameters.
@@ -30,8 +30,8 @@ public class KVPair<K, V> {
         key = inKey;
         value = inValue;
     }
-    
-    
+
+
     // ~ Public Methods .....................................................
     /**
      * Get key.
@@ -53,5 +53,4 @@ public class KVPair<K, V> {
         return value;
     }
 
-    
 }
