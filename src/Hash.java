@@ -1,7 +1,7 @@
 /**
  * Hash class
  * 
- * @author pd_de
+ * @author Peyton Dexter and Justin Shelton
  * @version 12/7/2021
  *
  * @param <T>
