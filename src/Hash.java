@@ -323,7 +323,7 @@ public class Hash<T, K> implements HashADT<T, K> {
         for (int i = 0; i < hT.length; i++) {
             // null check
             if (hT[i] != null) {
-                outStr = outStr + "|" + hT[i].toString() + "|" + i + "\n";
+                outStr = outStr + "|" + hT[i].toString() + "| " + i + "\n";
             }
         }
         outStr = outStr + "Total records: " + usage;
