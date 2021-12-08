@@ -1,7 +1,8 @@
 /**
+ * data base class
  * 
  * @author pd_de
- *
+ * @version 12/7/2021
  */
 public class DataBase {
 
@@ -34,13 +35,15 @@ public class DataBase {
      */
     public void add(Record inRecord) {
         // hash table add
-        //if added 
-        if(hashTable.put(inRecord)) {
-            System.out.println("|" + inRecord.toString() + "|" + " has been added to the Name dataBase. "); 
+        // if added
+        if (hashTable.put(inRecord)) {
+            System.out.println("|" + inRecord.toString() + "|"
+                + " has been added to the Name dataBase. ");
         }
-        //if not added 
+        // if not added
         else {
-            System.out.println("|" + inRecord.toString() + "|" + " duplicates a record already in the Name database. "); 
+            System.out.println("|" + inRecord.toString() + "|"
+                + " duplicates a record already in the Name database. ");
         }
     }
 
@@ -53,13 +56,16 @@ public class DataBase {
      */
     public void delete(Record inRecord) {
         // hash table remove
-        //if removed
-        if(hashTable.remove(inRecord.toString()) != null){
-            System.out.println("|" + inRecord.toString() + "|" + " has been deleted from the Name database. ");
+        // if removed
+        if (hashTable.remove(inRecord.toString()) != null) {
+            System.out.println("|" + inRecord.toString() + "|"
+                + " has been deleted from the Name database. ");
         }
-        //not removed
+        // not removed
         else {
-            System.out.println("|" + inRecord.toString() + "|" + " not deleted becuase it does not exist in the Name database. ");
+            System.out.print("|" + inRecord.toString() + "|");
+            System.out.print(" not deleted becuase it does not exist");
+            System.out.println(" in the Name database.");
         }
     }
 
@@ -85,13 +91,15 @@ public class DataBase {
                 inArray[2]));
             // update the record in the hash table
             hashTable.update(tempRecord.toString(), tempRecord);
-            
+
             System.out.println("Updated Record: " + tempRecord.fullString());
         }
 
         // else element doesnt exist in database
         else {
-            System.out.println("|" + inArray[0] + "|" + " has been updated becuase it does not exist in the Name database. ");
+            System.out.print("|" + inArray[0] + "|");
+            System.out.print(" has been updated becuase it does ");
+            System.out.println("not exist in the Name database. ");
         }
     }
 
@@ -109,7 +117,7 @@ public class DataBase {
 
         // element exists check
         if (hashTable.get(inArray[0]) != null) {
-            //System.out.println("DB UPDATE DELETE");
+            // System.out.println("DB UPDATE DELETE");
 
             // get copy of data from hash
             Record tempRecord = hashTable.get(inArray[0]);
@@ -119,16 +127,22 @@ public class DataBase {
             if (flag) {
                 // update the record in the hash table
                 hashTable.update(tempRecord.toString(), tempRecord);
-                System.out.println("Updated Record: " + tempRecord.fullString());
+                System.out.println("Updated Record: " + tempRecord
+                    .fullString());
             }
             else {
-                System.out.println("|" + inArray[0] + "|" + " not updated because the field " + "|" + inArray[1] + "|" + " does not exist");
+                System.out.print("|" + inArray[0] + "|"
+                    + " not updated because the field ");
+                System.out.println("|" + inArray[1] + "|" + " does not exist");
             }
 
         }
         // else the element does not exist in the database
         else {
-            System.out.println("|" + inArray[0] + "|" + " not updated becuase it does not exist in the Name database. ");
+            System.out.print("|" + inArray[0] + "|");
+            System.out.print(" not updated becuase it does not ");
+
+            System.out.println("exist in the Name database.");
         }
 
     }
@@ -146,7 +160,7 @@ public class DataBase {
      * prints blocks of memory
      */
     public void printBlocks() {
-
+        System.out.println("");
     }
 
 }

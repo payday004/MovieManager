@@ -43,7 +43,7 @@ public class CommandReader {
 
                 // UPDATE ADD
                 if (word[1].contains("add")) {
-                    System.out.println(command.trim());
+                    // System.out.println(command.trim());
 
                     // pass to dB to handle implementation
                     dB.updateAdd(getUpdateInfo(word));
@@ -51,7 +51,7 @@ public class CommandReader {
 
                 // UPDATE DELETE
                 else {
-                    System.out.println(command.trim());
+                    // System.out.println(command.trim());
 
                     // pass to dB to handle implementation
                     dB.updateDelete(getUpdateInfo(word));
@@ -60,7 +60,7 @@ public class CommandReader {
 
             // ADD COMMAND
             else if (word[0].contains("add")) {
-                System.out.println(command.trim());
+                // System.out.println(command.trim());
                 // System.out.println(getName(word));
 
                 // add record into database
@@ -69,7 +69,7 @@ public class CommandReader {
 
             // DELETE COMMAND
             else if (word[0].contains("delete")) {
-                System.out.println(command.trim());
+                // System.out.println(command.trim());
                 // System.out.println(getName(word));
 
                 // delete record from database
@@ -82,18 +82,19 @@ public class CommandReader {
                 // PRINT HASHTEBLE
                 if (word[1].contains("hashtable")) {
                     // echo command
-                    System.out.println(command.trim());
+                    // System.out.println(command.trim());
                     // print HashTable
                     dB.printHash();
                 }
 
                 // PRINT MEMORY BLOCK
                 else {
-                    System.out.println(command.trim());
+                    // System.out.println(command.trim());
                     // System.out.println(command);
+                    dB.printBlocks();
                 }
             }
-            System.out.println(""); 
+            //System.out.println("");
         }
 
         // close scanner
@@ -148,7 +149,7 @@ public class CommandReader {
         // add to output array and trim each entry
         for (int i = 0; i < outStrArray.length; i++) {
             outStrArray[i] = outStrArray[i].trim();
-            //System.out.println(outStrArray[i] + "|");
+            // System.out.println(outStrArray[i] + "|");
         }
 
         return outStrArray;

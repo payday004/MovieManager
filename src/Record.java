@@ -18,7 +18,7 @@ public class Record {
     /**
      * constructor for record
      * 
-     * @param inData
+     * @param name
      *            record data
      */
     public Record(String name) {
@@ -36,29 +36,30 @@ public class Record {
     public String toString() {
         return name;
     }
-    
-    
-    
+
+
     /**
-     * override of object to string
+     * returns fill string of record
+     * 
+     * @return the full string of record object
      */
     public String fullString() {
-        String outStr = ""; 
-        
-        outStr += "|"; 
-        
-        outStr += name; 
-        
-        for(int i = 0; i < data.size(); i++) {
-            outStr += "<SEP>" + data.get(i).key() + "<SEP>" + data.get(i).value(); 
-        }
-        
+        String outStr = "";
+
         outStr += "|";
-        
+
+        outStr += name;
+
+        for (int i = 0; i < data.size(); i++) {
+            outStr += "<SEP>" + data.get(i).key() + "<SEP>" + data.get(i)
+                .value();
+        }
+
+        outStr += "|";
+
         return outStr;
     }
 
-    
 
     /**
      * Adds KVPair to data
@@ -68,9 +69,9 @@ public class Record {
      */
     public void updateData(KVPair<String, String> inPair) {
         // add the input
-        
+
         data.removeIf(i -> i.key().equals(inPair.key()));
-        
+
         data.add(inPair);
     }
 

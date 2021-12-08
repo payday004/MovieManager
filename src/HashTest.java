@@ -127,6 +127,8 @@ public class HashTest extends TestCase {
 
         // System.out.println(removeHash);
 
+        assertEquals(removeHash.h("aaaabbbb", 101), 75);
+
     }
 
 
@@ -157,6 +159,8 @@ public class HashTest extends TestCase {
 
         // exists and correct
         removeHash.update("ok", ok);
+
+        assertEquals(removeHash.h("aaaabbbb", 101), 75);
 
     }
 

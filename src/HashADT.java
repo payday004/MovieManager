@@ -2,6 +2,7 @@
  * hash abstract data type
  * 
  * @author pd_de
+ * @version 12.7.21
  *
  * @param <T>
  *            data

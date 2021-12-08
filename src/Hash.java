@@ -1,11 +1,14 @@
-
 /**
- * Stub for hash table class. Extend with your code, and update this docblock
+ * Hash class
+ * 
+ * @author pd_de
+ * @version 12/7/2021
  *
- * @author Peyton Dexter and Justin Shelton
- * @version 12/1/2021
+ * @param <T>
+ *            data
+ * @param <K>
+ *            key
  */
-
 public class Hash<T, K> implements HashADT<T, K> {
 
     // ~ Fields
@@ -13,7 +16,7 @@ public class Hash<T, K> implements HashADT<T, K> {
     private int maxCapacity;
     private int usage;
 
-    private T[] HT;
+    private T[] hT;
 
     // ~ Constructor
     // ............................................................
@@ -30,7 +33,7 @@ public class Hash<T, K> implements HashADT<T, K> {
 
         this.usage = 0;
 
-        HT = (T[])new Object[maxCapacity];
+        hT = (T[])new Object[maxCapacity];
 
     }
 
@@ -45,33 +48,34 @@ public class Hash<T, K> implements HashADT<T, K> {
 
         // need to double size check
         if (usage >= maxCapacity / 2) {
-            HT = doubleSize();
-            
-            System.out.println( "Name hash table size doubled to " + maxCapacity + " slots.");
+            hT = doubleSize();
+
+            System.out.println("Name hash table size doubled to " + maxCapacity
+                + " slots.");
         }
 
         // get location from key
         int location = h(inElem.toString(), maxCapacity);
 
-        //duplicate check
-        if (HT[location] != null && HT[location].equals(inElem)) {
+        // duplicate check
+        if (hT[location] != null && hT[location].equals(inElem)) {
             return false;
         }
 
-        // somehting already exists
-        if (HT[location] != null) {
+        // somehTing already exists
+        if (hT[location] != null) {
 
             // System.out.println("TIME TO PROBE");
 
             // quadradic probe
             int probe = 0;
-            while (HT[(location + probe * probe) % maxCapacity] != null) {
+            while (hT[(location + probe * probe) % maxCapacity] != null) {
                 // inc probe
                 probe++;
 
                 // duplicate check
-                if (HT[(location + probe * probe) % maxCapacity] != null
-                    && HT[(location + probe * probe) % maxCapacity].equals(
+                if (hT[(location + probe * probe) % maxCapacity] != null
+                    && hT[(location + probe * probe) % maxCapacity].equals(
                         inElem)) {
                     // System.out.println("DUPLICATE");
 
@@ -81,7 +85,7 @@ public class Hash<T, K> implements HashADT<T, K> {
             }
 
             // insert element and update usage
-            HT[(location + probe * probe) % maxCapacity] = inElem;
+            hT[(location + probe * probe) % maxCapacity] = inElem;
             usage++;
 
             return true;
@@ -89,7 +93,7 @@ public class Hash<T, K> implements HashADT<T, K> {
 
         // insert into hash table + update usage
         else {
-            HT[location] = inElem;
+            hT[location] = inElem;
             usage++;
             return true;
         }
@@ -106,30 +110,30 @@ public class Hash<T, K> implements HashADT<T, K> {
         int location = h((String)key, maxCapacity);
 
         // doesnt exist -> return null
-        if (HT[location] == null) {
+        if (hT[location] == null) {
             return null;
         }
 
         // exists but not same element -> colision resolution
-        if (HT[location].toString() != key) {
+        if (hT[location].toString() != key) {
 
             // probe
             int probe = 0;
             // while current position != null and != key (target)
-            while (HT[(location + probe * probe) % maxCapacity] != null
-                && !HT[(location + probe * probe) % maxCapacity].toString()
+            while (hT[(location + probe * probe) % maxCapacity] != null
+                && !hT[(location + probe * probe) % maxCapacity].toString()
                     .equals(key)) {
                 // inc probe
                 probe++;
             }
 
             // if found key
-            if (HT[(location + probe * probe) % maxCapacity] != null
-                && HT[(location + probe * probe) % maxCapacity].toString()
+            if (hT[(location + probe * probe) % maxCapacity] != null
+                && hT[(location + probe * probe) % maxCapacity].toString()
                     .equals(key)) {
 
                 // return element
-                return HT[(location + probe * probe) % maxCapacity];
+                return hT[(location + probe * probe) % maxCapacity];
             }
 
             // does not exist
@@ -140,7 +144,7 @@ public class Hash<T, K> implements HashADT<T, K> {
 
         // exists and correct element
         else {
-            return HT[location];
+            return hT[location];
         }
     }
 
@@ -158,36 +162,36 @@ public class Hash<T, K> implements HashADT<T, K> {
         int location = h((String)key, maxCapacity);
 
         // null check nothing to be removed
-        if (HT[location] == null) {
+        if (hT[location] == null) {
             // System.out.println("THIS DOES NOT EXIST");
             return null;
         }
 
         // exists but not same element -> colision resolution
-        if (HT[location].toString() != key) {
+        if (hT[location].toString() != key) {
             // System.out.println("COLISION RESOLUTION");
 
             // probe
             int probe = 0;
             // while current position != null and != key (target)
-            while (HT[(location + probe * probe) % maxCapacity] != null
-                && !HT[(location + probe * probe) % maxCapacity].toString()
+            while (hT[(location + probe * probe) % maxCapacity] != null
+                && !hT[(location + probe * probe) % maxCapacity].toString()
                     .equals(key)) {
                 // inc probe
                 probe++;
             }
 
             // if found key
-            if (HT[(location + probe * probe) % maxCapacity] != null
-                && HT[(location + probe * probe) % maxCapacity].toString()
+            if (hT[(location + probe * probe) % maxCapacity] != null
+                && hT[(location + probe * probe) % maxCapacity].toString()
                     .equals(key)) {
                 // copy element
-                T outElement = HT[(location + probe * probe) % maxCapacity];
+                T outElement = hT[(location + probe * probe) % maxCapacity];
                 // remove element
-                HT[(location + probe * probe) % maxCapacity] = null;
+                hT[(location + probe * probe) % maxCapacity] = null;
                 usage--;
                 // rehash
-                HT = rehash();
+                hT = rehash();
                 // return
                 return outElement;
             }
@@ -202,12 +206,12 @@ public class Hash<T, K> implements HashADT<T, K> {
         // exists and correct element
         else {
             // copy
-            T element = HT[location];
+            T element = hT[location];
             // remove
-            HT[location] = null;
+            hT[location] = null;
             usage--;
             // rehash
-            HT = rehash();
+            hT = rehash();
             // return
             return element;
         }
@@ -229,32 +233,32 @@ public class Hash<T, K> implements HashADT<T, K> {
         int location = h((String)key, maxCapacity);
 
         // null check nothing to be removed
-        if (HT[location] == null) {
+        if (hT[location] == null) {
             // System.out.println("THIS DOES NOT EXIST");
             return false;
         }
 
         // exists but not same element -> colision resolution
-        if (HT[location].toString() != key) {
+        if (hT[location].toString() != key) {
             // System.out.println("COLISION RESOLUTION");
 
             // probe
             int probe = 0;
             // while current position != null and != key (target)
-            while (HT[(location + probe * probe) % maxCapacity] != null
-                && !HT[(location + probe * probe) % maxCapacity].toString()
+            while (hT[(location + probe * probe) % maxCapacity] != null
+                && !hT[(location + probe * probe) % maxCapacity].toString()
                     .equals(key)) {
                 // inc probe
                 probe++;
             }
 
             // if found key
-            if (HT[(location + probe * probe) % maxCapacity] != null
-                && HT[(location + probe * probe) % maxCapacity].toString()
+            if (hT[(location + probe * probe) % maxCapacity] != null
+                && hT[(location + probe * probe) % maxCapacity].toString()
                     .equals(key)) {
 
                 // update element
-                HT[(location + probe * probe) % maxCapacity] = elem;
+                hT[(location + probe * probe) % maxCapacity] = elem;
 
                 return true;
             }
@@ -269,7 +273,7 @@ public class Hash<T, K> implements HashADT<T, K> {
         // exists and correct element
         else {
             // update and return
-            HT[location] = elem;
+            hT[location] = elem;
             return true;
         }
     }
@@ -287,12 +291,12 @@ public class Hash<T, K> implements HashADT<T, K> {
         Hash<T, K> outHash = new Hash<T, K>(maxCapacity * 2);
 
         // for all elements in old array
-        for (int i = 0; i < HT.length; i++) {
+        for (int i = 0; i < hT.length; i++) {
             // if not null
-            if (HT[i] != null) {
+            if (hT[i] != null) {
 
                 // add to new hash
-                outHash.put(HT[i]);
+                outHash.put(hT[i]);
             }
         }
 
@@ -300,7 +304,7 @@ public class Hash<T, K> implements HashADT<T, K> {
         maxCapacity = maxCapacity * 2;
 
         // return array
-        return outHash.HT;
+        return outHash.hT;
     }
 
 
@@ -312,18 +316,14 @@ public class Hash<T, K> implements HashADT<T, K> {
 
         // return string
         String outStr = "";
-        // System.out.println("max capacity: " + HT.length);
+        // System.out.println("max capacity: " + hT.length);
         // System.out.println("Total records: " + usage);
 
-        // for each element in HT add to string
-        for (int i = 0; i < HT.length; i++) {
+        // for each element in hT add to string
+        for (int i = 0; i < hT.length; i++) {
             // null check
-            if (HT[i] == null) {
-                // outStr = outStr + "null\n";
-            }
-            // add value
-            else {
-                outStr = outStr + "|" + HT[i].toString() + "|" + i + "\n";
+            if (hT[i] != null) {
+                outStr = outStr + "|" + hT[i].toString() + "|" + i + "\n";
             }
         }
         outStr = outStr + "Total records: " + usage;
@@ -382,17 +382,17 @@ public class Hash<T, K> implements HashADT<T, K> {
         Hash<T, K> outHash = new Hash<T, K>(maxCapacity);
 
         // for all elements in old array
-        for (int i = 0; i < HT.length; i++) {
+        for (int i = 0; i < hT.length; i++) {
             // if not null
-            if (HT[i] != null) {
+            if (hT[i] != null) {
 
                 // add to new hash
-                outHash.put(HT[i]);
+                outHash.put(hT[i]);
             }
         }
 
         // return array
-        return outHash.HT;
+        return outHash.hT;
     }
 
 }

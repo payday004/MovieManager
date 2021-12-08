@@ -2,6 +2,7 @@
  * KVPair class
  * 
  * @author pd_de
+ * @version 12.7.2021
  *
  * @param <K>
  *            key
