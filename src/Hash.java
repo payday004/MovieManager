@@ -1,3 +1,4 @@
+
 /**
  * Stub for hash table class. Extend with your code, and update this docblock
  *
@@ -45,10 +46,17 @@ public class Hash<T, K> implements HashADT<T, K> {
         // need to double size check
         if (usage >= maxCapacity / 2) {
             HT = doubleSize();
+            
+            System.out.println( "Name hash table size doubled to " + maxCapacity + " slots.");
         }
 
         // get location from key
         int location = h(inElem.toString(), maxCapacity);
+
+        //duplicate check
+        if (HT[location] != null && HT[location].equals(inElem)) {
+            return false;
+        }
 
         // somehting already exists
         if (HT[location] != null) {
@@ -66,6 +74,7 @@ public class Hash<T, K> implements HashADT<T, K> {
                     && HT[(location + probe * probe) % maxCapacity].equals(
                         inElem)) {
                     // System.out.println("DUPLICATE");
+
                     return false;
                 }
 
@@ -303,20 +312,21 @@ public class Hash<T, K> implements HashADT<T, K> {
 
         // return string
         String outStr = "";
-        System.out.println("max capacity:  " + HT.length);
-        System.out.println("usage       :  " + usage);
+        // System.out.println("max capacity: " + HT.length);
+        // System.out.println("Total records: " + usage);
 
         // for each element in HT add to string
         for (int i = 0; i < HT.length; i++) {
             // null check
             if (HT[i] == null) {
-                outStr = outStr + "null\n";
+                // outStr = outStr + "null\n";
             }
             // add value
             else {
-                outStr = outStr + HT[i].toString() + "\n";
+                outStr = outStr + "|" + HT[i].toString() + "|" + i + "\n";
             }
         }
+        outStr = outStr + "Total records: " + usage;
         return outStr;
     }
 

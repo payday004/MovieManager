@@ -89,11 +89,11 @@ public class CommandReader {
 
                 // PRINT MEMORY BLOCK
                 else {
+                    System.out.println(command.trim());
                     // System.out.println(command);
                 }
             }
-
-            System.out.println("\n");
+            System.out.println(""); 
         }
 
         // close scanner
@@ -148,7 +148,7 @@ public class CommandReader {
         // add to output array and trim each entry
         for (int i = 0; i < outStrArray.length; i++) {
             outStrArray[i] = outStrArray[i].trim();
-            System.out.println(outStrArray[i] + "|");
+            //System.out.println(outStrArray[i] + "|");
         }
 
         return outStrArray;

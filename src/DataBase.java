@@ -34,7 +34,14 @@ public class DataBase {
      */
     public void add(Record inRecord) {
         // hash table add
-        hashTable.put(inRecord);
+        //if added 
+        if(hashTable.put(inRecord)) {
+            System.out.println("|" + inRecord.toString() + "|" + " has been added to the Name dataBase. "); 
+        }
+        //if not added 
+        else {
+            System.out.println("|" + inRecord.toString() + "|" + " duplicates a record already in the Name database. "); 
+        }
     }
 
 
@@ -46,7 +53,14 @@ public class DataBase {
      */
     public void delete(Record inRecord) {
         // hash table remove
-        hashTable.remove(inRecord.toString());
+        //if removed
+        if(hashTable.remove(inRecord.toString()) != null){
+            System.out.println("|" + inRecord.toString() + "|" + " has been deleted from the Name database. ");
+        }
+        //not removed
+        else {
+            System.out.println("|" + inRecord.toString() + "|" + " not deleted becuase it does not exist in the Name database. ");
+        }
     }
 
 
@@ -71,11 +85,13 @@ public class DataBase {
                 inArray[2]));
             // update the record in the hash table
             hashTable.update(tempRecord.toString(), tempRecord);
+            
+            System.out.println("Updated Record: " + tempRecord.fullString());
         }
 
         // else element doesnt exist in database
         else {
-            System.out.println("THIS DOES NOT EXIST IN THE DATABASE");
+            System.out.println("|" + inArray[0] + "|" + " has been updated becuase it does not exist in the Name database. ");
         }
     }
 
@@ -93,7 +109,7 @@ public class DataBase {
 
         // element exists check
         if (hashTable.get(inArray[0]) != null) {
-            System.out.println("DB UPDATE DELETE");
+            //System.out.println("DB UPDATE DELETE");
 
             // get copy of data from hash
             Record tempRecord = hashTable.get(inArray[0]);
@@ -103,16 +119,16 @@ public class DataBase {
             if (flag) {
                 // update the record in the hash table
                 hashTable.update(tempRecord.toString(), tempRecord);
+                System.out.println("Updated Record: " + tempRecord.fullString());
             }
             else {
-                System.out.println(
-                    "THIS SPECIFIC KEY WAS NOT PRESENT IN RECORD");
+                System.out.println("|" + inArray[0] + "|" + " not updated because the field " + "|" + inArray[1] + "|" + " does not exist");
             }
 
         }
         // else the element does not exist in the database
         else {
-            System.out.println("DOES NOT EXIST IN DATA BASE");
+            System.out.println("|" + inArray[0] + "|" + " not updated becuase it does not exist in the Name database. ");
         }
 
     }

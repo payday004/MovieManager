@@ -36,7 +36,29 @@ public class Record {
     public String toString() {
         return name;
     }
+    
+    
+    
+    /**
+     * override of object to string
+     */
+    public String fullString() {
+        String outStr = ""; 
+        
+        outStr += "|"; 
+        
+        outStr += name; 
+        
+        for(int i = 0; i < data.size(); i++) {
+            outStr += "<SEP>" + data.get(i).key() + "<SEP>" + data.get(i).value(); 
+        }
+        
+        outStr += "|";
+        
+        return outStr;
+    }
 
+    
 
     /**
      * Adds KVPair to data
@@ -46,6 +68,9 @@ public class Record {
      */
     public void updateData(KVPair<String, String> inPair) {
         // add the input
+        
+        data.removeIf(i -> i.key().equals(inPair.key()));
+        
         data.add(inPair);
     }
 
