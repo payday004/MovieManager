@@ -11,6 +11,7 @@ public class Record {
     // ~ Fields ............................................................
     private String name;
 
+    private Handle hand;
     private ArrayList<KVPair<String, String>> data;
 
     // ~ Constructor
@@ -37,7 +38,23 @@ public class Record {
         return name;
     }
 
-
+    /**
+     * sets the handle in the record
+     * @param h handle
+     * @return record
+     */
+    public Record setHandle(Handle h) {
+        this.hand = h;
+        return this;
+    }
+    
+    /**
+     * getter for the records handle
+     * @return handle
+     */
+    public Handle getHandle() {
+        return hand;
+    }
     /**
      * returns fill string of record
      * 

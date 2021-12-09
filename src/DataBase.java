@@ -8,6 +8,7 @@ public class DataBase {
 
     // ~ Fields ............................................................
     private Hash<Record, String> hashTable;
+    private FreeBlocks memPool;
 
     // ~ Constructor
     // ............................................................
@@ -22,6 +23,8 @@ public class DataBase {
     public DataBase(int hashSize, int memSize) {
         // hashtable
         hashTable = new Hash<Record, String>(hashSize);
+        // mempool
+        memPool = new FreeBlocks(memSize);
     }
 
 
@@ -35,10 +38,18 @@ public class DataBase {
      */
     public void add(Record inRecord) {
         // hash table add
+        //check if memory is full
         // if added
         if (hashTable.put(inRecord)) {
             System.out.println("|" + inRecord.toString() + "|"
                 + " has been added to the Name dataBase. ");
+            //mempool add
+//            int size = 0;
+//            for (int i = 1; i >= inRecord.toString().length(); i = i * 2) {
+//                size = i;
+//            }
+//            byte[] memBig = new byte[size];
+//            inRecord.setHandle(memPool.insert(memBig, inRecord.toString().length()));
         }
         // if not added
         else {
@@ -160,7 +171,7 @@ public class DataBase {
      * prints blocks of memory
      */
     public void printBlocks() {
-        System.out.println("");
+        memPool.dump();
     }
 
 }
