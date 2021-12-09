@@ -40,16 +40,17 @@ public class DataBase {
         // hash table add
         //check if memory is full
         // if added
-        if (hashTable.put(inRecord)) {
+        if (hashTable.get(inRecord.toString()) == null) {
+            //System.out.println(inRecord.toString().length());
+            int size;
+            for (size = 1; size <= inRecord.toString().length(); size = size * 2);
+            byte[] memBig = new byte[size];
+            inRecord.setHandle(memPool.insert(memBig, inRecord.toString().length()));
+            //memPool.dump();
+            hashTable.put(inRecord);
             System.out.println("|" + inRecord.toString() + "|"
                 + " has been added to the Name dataBase. ");
-            //mempool add
-//            int size = 0;
-//            for (int i = 1; i >= inRecord.toString().length(); i = i * 2) {
-//                size = i;
-//            }
-//            byte[] memBig = new byte[size];
-//            inRecord.setHandle(memPool.insert(memBig, inRecord.toString().length()));
+            
         }
         // if not added
         else {

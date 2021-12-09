@@ -28,11 +28,13 @@ public class FreeBlocks {
 
     public Handle insert(byte[] space, int size) {
         // see if insert is bigger than mem size
+        int position = 0;
         if (space.length > memMax) {
             int drac = 0;
             while (space.length > memMax) {
                 memMax = memMax * 2;
-                drac++;
+                freeList.add(new LinkedList<Block>());
+                freeList.getLast().add(new Block(memMax/2));
             }
             byte[] memCopy = new byte[memMax];
             System.arraycopy(memPool, 0, memCopy, 0, memPool.length);
@@ -41,26 +43,44 @@ public class FreeBlocks {
                 + "bytes.");
         }
         // find open space
+        //System.out.println(space.length);
         int start = this.log(space.length);
+        int start2 = start;
         if (freeList.get(start).size() != 0) {
             System.arraycopy(space, 0, memPool, freeList.get(start).get(0)
                 .getPosition(), space.length);
+            position = freeList.get(start).get(0)
+                .getPosition();
             freeList.get(start).remove(0);
         }
-        else while (start <= freeList.size() && freeList.get(start).size() == 0) {
-            start++;
-        }
+        else
+            while (start <= freeList.size() && freeList.get(start)
+                .size() == 0) {
+                start++;
+            }
         if (start > freeList.size()) {
             memMax = memMax * 2;
-            memPool = new byte[memMax];
+            freeList.add(new LinkedList<Block>());
+            freeList.getLast().add(new Block(memMax/2));
+        
+            byte[] memCopy = new byte[memMax];
+            System.arraycopy(memPool, 0, memCopy, 0, memPool.length);
+            memPool = memCopy;
             System.out.println("Memory pool expanded to be" + memMax
                 + "bytes.");
         }
         if (freeList.get(start).size() != 0) {
-            
+            this.split(space.length, (int)Math.pow(2, start), freeList.get(
+                start).get(0));
             freeList.get(start).remove(0);
+            System.arraycopy(space, 0, memPool, freeList.get(start2).get(0)
+                .getPosition(), space.length);
+            position = freeList.get(start2).get(0)
+                .getPosition();
+            freeList.get(start2).remove(0);
         }
 
+        return new Handle(position, size);
     }
 
 
@@ -78,6 +98,8 @@ public class FreeBlocks {
 
     public void remove(Handle hand) {
 
+        int pos = hand.getPos();
+        int size = hand.getLength();
     }
 
 
@@ -90,6 +112,7 @@ public class FreeBlocks {
      * dump the blocks
      */
     public void dump() {
+        Boolean flag = true;
         for (int i = 0; i < freeList.size(); i++) {
             if (freeList.get(i).size() != 0) {
                 int x = (int)Math.pow(2, i);
@@ -99,7 +122,11 @@ public class FreeBlocks {
                         + " ");
                 }
                 System.out.print("\n");
+                flag = false;
             }
+        }
+        if (flag) {
+            System.out.println("No free blocks are available.");
         }
     }
 
@@ -113,18 +140,37 @@ public class FreeBlocks {
      */
     private int log(int x) {
         int count = 0;
-        for (int i = 1; i >= x; i = i * 2) {
+        for (int i = 1; i < x; i = i * 2) {
             count++;
         }
         return count;
     }
-    
-    private Block split(int need, int have, Block b) {
-        Block back = new Block(have/2);
-        Block front = new Block(have/2);
-        
-        int pos = log(have/2);
-        freeList.get(pos).add(back);
-        return split(need, have/2, front);
+
+
+    /**
+     * helper for inserting things
+     * 
+     * @param need
+     *            size
+     * @param have
+     *            size
+     * @param b
+     *            current block
+     */
+    private void split(int need, int have, Block b) {
+        if (need == have) {
+            int bic = log(need);
+            //freeList.get(bic).add(new Block(b.getPosition() + (have / 2)));
+            freeList.get(bic).addFirst(new Block(b.getPosition()));
+        }
+        else {
+            Block back = new Block(b.getPosition() + (have / 2));
+            Block front = new Block(b.getPosition());
+
+            int pos = log(have / 2);
+            freeList.get(pos).add(back);
+            split(need, have / 2, front);
+
+        }
     }
 }
