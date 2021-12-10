@@ -52,13 +52,13 @@ public class DataBase {
             // memPool.dump();
             hashTable.put(inRecord);
             System.out.println("|" + inRecord.toString() + "|"
-                + " has been added to the Name dataBase. ");
+                + " has been added to the Name database.");
 
         }
         // if not added
         else {
             System.out.println("|" + inRecord.toString() + "|"
-                + " duplicates a record already in the Name database. ");
+                + " duplicates a record already in the Name database.");
         }
     }
 
@@ -77,12 +77,12 @@ public class DataBase {
             memPool.remove(yes);
             hashTable.remove(inRecord.toString());
             System.out.println("|" + inRecord.toString() + "|"
-                + " has been deleted from the Name database. ");
+                + " has been deleted from the Name database.");
         }
         // not removed
         else {
             System.out.print("|" + inRecord.toString() + "|");
-            System.out.print(" not deleted becuase it does not exist");
+            System.out.print(" not deleted because it does not exist");
             System.out.println(" in the Name database.");
         }
     }
@@ -111,26 +111,25 @@ public class DataBase {
             tempRecord.updateData(new KVPair<String, String>(inArray[1],
                 inArray[2]));
 
-
             // update the record in the hash table
             hashTable.update(tempRecord.toString(), tempRecord);
-            
+            System.out.println("Updated Record: " + tempRecord.fullString());
             int size;
-            for (size = 1; size <= tempRecord.fullString().length(); size = size
-                * 2)
+            for (size = 1; size <= tempRecord.fullString().length() - 2; size =
+                size * 2)
                 ;
             byte[] memBig = new byte[size];
             tempRecord.setHandle(memPool.insert(memBig, tempRecord.fullString()
-                .length()));
+                .length() - 2));
 
-            System.out.println("Updated Record: " + tempRecord.fullString());
+// System.out.println("Updated Record: " + tempRecord.fullString());
         }
 
         // else element doesnt exist in database
         else {
             System.out.print("|" + inArray[0] + "|");
-            System.out.print(" has been updated becuase it does ");
-            System.out.println("not exist in the Name database. ");
+            System.out.print(" not updated because it does ");
+            System.out.println("not exist in the Name database.");
         }
     }
 
@@ -158,18 +157,18 @@ public class DataBase {
             if (flag) {
                 Handle yes = hashTable.get(inArray[0]).getHandle();
                 memPool.remove(yes);
-                
+
                 // update the record in the hash table
                 hashTable.update(tempRecord.toString(), tempRecord);
-                
+
                 int size;
-                for (size = 1; size <= tempRecord.fullString().length(); size = size
-                    * 2)
+                for (size = 1; size <= tempRecord.fullString().length()
+                    - 2; size = size * 2)
                     ;
                 byte[] memBig = new byte[size];
-                tempRecord.setHandle(memPool.insert(memBig, tempRecord.fullString()
-                    .length()));
-                
+                tempRecord.setHandle(memPool.insert(memBig, tempRecord
+                    .fullString().length() - 2));
+
                 System.out.println("Updated Record: " + tempRecord
                     .fullString());
             }

@@ -30,45 +30,45 @@ public class FreeBlocks {
         // see if insert is bigger than mem size
         int position = 0;
         if (space.length > memMax) {
-            int drac = 0;
             while (space.length > memMax) {
                 memMax = memMax * 2;
-                freeList.add(new LinkedList<Block>());
                 freeList.getLast().add(new Block(memMax / 2));
+                freeList.add(new LinkedList<Block>());
+                System.out.println("Memory pool expanded to be " + memMax
+                    + " bytes.");
             }
             byte[] memCopy = new byte[memMax];
             System.arraycopy(memPool, 0, memCopy, 0, memPool.length);
             memPool = memCopy;
-            System.out.println("No free blocks are available.");
-            System.out.println("Memory pool expanded to be " + memMax
-                + " bytes.");
+
+            // this.dump();
         }
         // find open space
         // System.out.println(space.length);
         int start = this.log(space.length);
         int start2 = start;
         if (freeList.get(start).size() != 0) {
-            System.arraycopy(space, 0, memPool, freeList.get(start).get(0)
-                .getPosition(), space.length);
+// System.arraycopy(space, 0, memPool, freeList.get(start).get(0)
+// .getPosition(), space.length);
             position = freeList.get(start).get(0).getPosition();
             freeList.get(start).remove(0);
         }
         else
-            while (start <= freeList.size() && freeList.get(start)
-                .size() == 0) {
+            while (start < freeList.size() && freeList.get(start).size() == 0) {
                 start++;
             }
-        if (start > freeList.size()) {
+        if (start >= freeList.size()) {
             memMax = memMax * 2;
-            freeList.add(new LinkedList<Block>());
             freeList.getLast().add(new Block(memMax / 2));
+            freeList.add(new LinkedList<Block>());
 
             byte[] memCopy = new byte[memMax];
             System.arraycopy(memPool, 0, memCopy, 0, memPool.length);
             memPool = memCopy;
-            System.out.println("No free blocks are available.");
             System.out.println("Memory pool expanded to be " + memMax
                 + " bytes.");
+            // this.dump();
+            start = start - 1;
         }
         if (freeList.get(start).size() != 0) {
             this.split(space.length, (int)Math.pow(2, start), freeList.get(
@@ -102,8 +102,18 @@ public class FreeBlocks {
         int size = hand.getLength();
         int power = this.log(size);
         int blkSize = (int)Math.pow(2, power);
+        Boolean flag = true;
 
-        freeList.get(power).add(new Block(pos));
+        for (int i = 0; i < freeList.get(power).size(); i++) {
+            if (freeList.get(power).get(i).getPosition() > pos) {
+                freeList.get(power).add(i, new Block(pos));
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            freeList.get(power).add(new Block(pos));
+        }
         this.merge(power, pos);
     }
 

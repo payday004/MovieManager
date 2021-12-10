@@ -34,6 +34,8 @@ public class CommandReader {
         // for each line in input file
         while (scan.hasNextLine()) {
 
+            //dB.printBlocks();
+            
             // split strings
             String command = scan.nextLine();
             String[] word = command.trim().split("\\s+", -2);
