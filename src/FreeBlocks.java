@@ -34,6 +34,8 @@ public class FreeBlocks {
                 memMax = memMax * 2;
                 freeList.getLast().add(new Block(memMax / 2));
                 freeList.add(new LinkedList<Block>());
+                int y = this.log(memMax / 2);
+                this.merge(y, memMax / 2);
                 System.out.println("Memory pool expanded to be " + memMax
                     + " bytes.");
             }
@@ -126,10 +128,10 @@ public class FreeBlocks {
         for (int i = 0; i < freeList.size(); i++) {
             if (freeList.get(i).size() != 0) {
                 int x = (int)Math.pow(2, i);
-                System.out.print(x + ": ");
+                System.out.print(x + ":");
                 for (int j = 0; j < freeList.get(i).size(); j++) {
-                    System.out.print(freeList.get(i).get(j).getPosition()
-                        + " ");
+                    System.out.print(" " + freeList.get(i).get(j)
+                        .getPosition());
                 }
                 System.out.print("\n");
                 flag = false;
@@ -185,6 +187,11 @@ public class FreeBlocks {
     }
 
 
+    /**
+     * merges mem blocks together after deletions
+     * @param power int
+     * @param position spot
+     */
     private void merge(int power, int position) {
 
         int spec = position ^ (1 << power);

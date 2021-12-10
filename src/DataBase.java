@@ -113,7 +113,7 @@ public class DataBase {
 
             // update the record in the hash table
             hashTable.update(tempRecord.toString(), tempRecord);
-            System.out.println("Updated Record: " + tempRecord.fullString());
+            //System.out.println("Updated Record: " + tempRecord.fullString());
             int size;
             for (size = 1; size <= tempRecord.fullString().length() - 2; size =
                 size * 2)
@@ -121,7 +121,7 @@ public class DataBase {
             byte[] memBig = new byte[size];
             tempRecord.setHandle(memPool.insert(memBig, tempRecord.fullString()
                 .length() - 2));
-
+            System.out.println("Updated Record: " + tempRecord.fullString());
 // System.out.println("Updated Record: " + tempRecord.fullString());
         }
 
