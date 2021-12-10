@@ -43,9 +43,10 @@ public class DataBase {
         if (hashTable.get(inRecord.toString()) == null) {
             // System.out.println(inRecord.toString().length());
             int size;
-            for (size = 1; size <= inRecord.toString().length(); size = size
-                * 2)
-                ;
+            for (size = 1; size < inRecord.toString().length(); size = size
+                * 2) {
+                // size counter
+            }
             byte[] memBig = new byte[size];
             inRecord.setHandle(memPool.insert(memBig, inRecord.toString()
                 .length()));
@@ -113,16 +114,17 @@ public class DataBase {
 
             // update the record in the hash table
             hashTable.update(tempRecord.toString(), tempRecord);
-            //System.out.println("Updated Record: " + tempRecord.fullString());
+            // System.out.println("Updated Record: " + tempRecord.fullString());
             int size;
             for (size = 1; size <= tempRecord.fullString().length() - 2; size =
-                size * 2)
-                ;
+                size * 2) {
+                // counter for size
+            }
+
             byte[] memBig = new byte[size];
             tempRecord.setHandle(memPool.insert(memBig, tempRecord.fullString()
                 .length() - 2));
             System.out.println("Updated Record: " + tempRecord.fullString());
-// System.out.println("Updated Record: " + tempRecord.fullString());
         }
 
         // else element doesnt exist in database
@@ -163,8 +165,9 @@ public class DataBase {
 
                 int size;
                 for (size = 1; size <= tempRecord.fullString().length()
-                    - 2; size = size * 2)
-                    ;
+                    - 2; size = size * 2) {
+                    // counter for size
+                }
                 byte[] memBig = new byte[size];
                 tempRecord.setHandle(memPool.insert(memBig, tempRecord
                     .fullString().length() - 2));
@@ -182,7 +185,7 @@ public class DataBase {
         // else the element does not exist in the database
         else {
             System.out.print("|" + inArray[0] + "|");
-            System.out.print(" not updated becuase it does not ");
+            System.out.print(" not updated because it does not ");
 
             System.out.println("exist in the Name database.");
         }

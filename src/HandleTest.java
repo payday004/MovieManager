@@ -8,7 +8,7 @@ import student.TestCase;
  */
 public class HandleTest extends TestCase {
     
-    Handle han = new Handle(10, 20);
+    private Handle han = new Handle(10, 20);
     
     /**
      * tests the handle getters

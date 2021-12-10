@@ -1,14 +1,16 @@
 import java.util.LinkedList;
 
 /**
+ * class that works the memory pool
+ * 
  * @author Justin Shelton and Peyton Dexter
  * @version 12.08.2021
  */
 public class FreeBlocks {
 
-    LinkedList<LinkedList<Block>> freeList = new LinkedList<>();
-    byte[] memPool;
-    int memMax;
+    private LinkedList<LinkedList<Block>> freeList = new LinkedList<>();
+    private byte[] memPool;
+    private int memMax;
 
     /**
      * constructor to set up memory
@@ -26,6 +28,15 @@ public class FreeBlocks {
     }
 
 
+    /**
+     * inserts a new block into memmory based on its byte size
+     * 
+     * @param space
+     *            the byte array taking up the space in memory
+     * @param size
+     *            length of the movie
+     * @return the handle created from adding
+     */
     public Handle insert(byte[] space, int size) {
         // see if insert is bigger than mem size
         int position = 0;
@@ -55,10 +66,12 @@ public class FreeBlocks {
             position = freeList.get(start).get(0).getPosition();
             freeList.get(start).remove(0);
         }
-        else
+        else {
+
             while (start < freeList.size() && freeList.get(start).size() == 0) {
                 start++;
             }
+        }
         if (start >= freeList.size()) {
             memMax = memMax * 2;
             freeList.getLast().add(new Block(memMax / 2));
@@ -98,6 +111,12 @@ public class FreeBlocks {
     }
 
 
+    /**
+     * removes block from memory
+     * 
+     * @param hand
+     *            handle of block trying to remove
+     */
     public void remove(Handle hand) {
 
         int pos = hand.getPos();
@@ -189,8 +208,11 @@ public class FreeBlocks {
 
     /**
      * merges mem blocks together after deletions
-     * @param power int
-     * @param position spot
+     * 
+     * @param power
+     *            int
+     * @param position
+     *            spot
      */
     private void merge(int power, int position) {
 

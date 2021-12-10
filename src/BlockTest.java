@@ -7,7 +7,7 @@ import student.TestCase;
  */
 public class BlockTest extends TestCase {
     
-    Block b = new Block(2);
+    private Block b = new Block(2);
     
     /**
      * tests the block position getter

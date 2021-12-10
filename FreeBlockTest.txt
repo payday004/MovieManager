@@ -1,5 +1,31 @@
 print hashtable
 print blocks
-add Death Note
-update add Death Note<SEP>main characters<SEP>Yaggami Light and L
+add the best we can do
+delete nothing
+add the best we can do again
+add the best we can do again
+add stop or my mom will shoot
+add the simpsons
+add stop or my dog will shoot
+add Tom and Jerry
+add Bug's life
+add Attack on Titans
+add Aladdin
+delete stop or my dog will shoot
+add Sindbad
+update add Sindbad<SEP>Genre<SEP>Film
+update add aladin<SEP>Actors<SEP>Jasmine
+update add Aladdin<SEP>Actors<SEP>Alaa Jasmine and the Gennie
+update add Aladdin<SEP>Actors<SEP>Alaa Jasmine and the Gennie<SEP>Cast<SEP>Alaa Jasmine and the Gennie
+update delete Aladding<SEP>Cast<SEP>Alaa Jasmine and the Gennie
+
+update add Aladdin<SEP>Actors<SEP>Alaa Jasmine and the Gennie<SEP>movie length<SEP>120:00
+update add the best we can do<SEP>G<SEP>4
+update add the best we can do<SEP>G<SEP>4
+add The Boss Baby
+add finding Dory
+update add the simpsons<SEP>feeling<SEP>crazy lol
+update add One piece<SEP>Actors<SEP>pirates
+add One piece
+update add One piece<SEP>feeling<SEP>Excited
 print blocks
