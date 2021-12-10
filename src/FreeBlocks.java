@@ -34,23 +34,23 @@ public class FreeBlocks {
             while (space.length > memMax) {
                 memMax = memMax * 2;
                 freeList.add(new LinkedList<Block>());
-                freeList.getLast().add(new Block(memMax/2));
+                freeList.getLast().add(new Block(memMax / 2));
             }
             byte[] memCopy = new byte[memMax];
             System.arraycopy(memPool, 0, memCopy, 0, memPool.length);
             memPool = memCopy;
-            System.out.println("Memory pool expanded to be" + memMax
-                + "bytes.");
+            System.out.println("No free blocks are available.");
+            System.out.println("Memory pool expanded to be " + memMax
+                + " bytes.");
         }
         // find open space
-        //System.out.println(space.length);
+        // System.out.println(space.length);
         int start = this.log(space.length);
         int start2 = start;
         if (freeList.get(start).size() != 0) {
             System.arraycopy(space, 0, memPool, freeList.get(start).get(0)
                 .getPosition(), space.length);
-            position = freeList.get(start).get(0)
-                .getPosition();
+            position = freeList.get(start).get(0).getPosition();
             freeList.get(start).remove(0);
         }
         else
@@ -61,13 +61,14 @@ public class FreeBlocks {
         if (start > freeList.size()) {
             memMax = memMax * 2;
             freeList.add(new LinkedList<Block>());
-            freeList.getLast().add(new Block(memMax/2));
-        
+            freeList.getLast().add(new Block(memMax / 2));
+
             byte[] memCopy = new byte[memMax];
             System.arraycopy(memPool, 0, memCopy, 0, memPool.length);
             memPool = memCopy;
-            System.out.println("Memory pool expanded to be" + memMax
-                + "bytes.");
+            System.out.println("No free blocks are available.");
+            System.out.println("Memory pool expanded to be " + memMax
+                + " bytes.");
         }
         if (freeList.get(start).size() != 0) {
             this.split(space.length, (int)Math.pow(2, start), freeList.get(
@@ -75,8 +76,7 @@ public class FreeBlocks {
             freeList.get(start).remove(0);
             System.arraycopy(space, 0, memPool, freeList.get(start2).get(0)
                 .getPosition(), space.length);
-            position = freeList.get(start2).get(0)
-                .getPosition();
+            position = freeList.get(start2).get(0).getPosition();
             freeList.get(start2).remove(0);
         }
 
@@ -100,11 +100,11 @@ public class FreeBlocks {
 
         int pos = hand.getPos();
         int size = hand.getLength();
-    }
+        int power = this.log(size);
+        int blkSize = (int)Math.pow(2, power);
 
-
-    public int get(byte[] space, Handle hand, int size) {
-
+        freeList.get(power).add(new Block(pos));
+        this.merge(power, pos);
     }
 
 
@@ -160,7 +160,7 @@ public class FreeBlocks {
     private void split(int need, int have, Block b) {
         if (need == have) {
             int bic = log(need);
-            //freeList.get(bic).add(new Block(b.getPosition() + (have / 2)));
+            // freeList.get(bic).add(new Block(b.getPosition() + (have / 2)));
             freeList.get(bic).addFirst(new Block(b.getPosition()));
         }
         else {
@@ -172,5 +172,28 @@ public class FreeBlocks {
             split(need, have / 2, front);
 
         }
+    }
+
+
+    private void merge(int power, int position) {
+
+        int spec = position ^ (1 << power);
+
+        for (int i = 0; i < freeList.get(power).size(); i++) {
+            if (freeList.get(power).get(i).getPosition() == spec) {
+                int min = Math.min(position, freeList.get(power).get(i)
+                    .getPosition());
+                freeList.get(power + 1).add(new Block(min));
+                freeList.get(power).remove(i);
+                for (int j = 0; j < freeList.get(power).size(); j++) {
+                    if (freeList.get(power).get(j).getPosition() == position) {
+                        freeList.get(power).remove(j);
+                    }
+                }
+                this.merge(power + 1, min);
+                break;
+            }
+        }
+
     }
 }

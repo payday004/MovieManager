@@ -38,19 +38,22 @@ public class DataBase {
      */
     public void add(Record inRecord) {
         // hash table add
-        //check if memory is full
+        // check if memory is full
         // if added
         if (hashTable.get(inRecord.toString()) == null) {
-            //System.out.println(inRecord.toString().length());
+            // System.out.println(inRecord.toString().length());
             int size;
-            for (size = 1; size <= inRecord.toString().length(); size = size * 2);
+            for (size = 1; size <= inRecord.toString().length(); size = size
+                * 2)
+                ;
             byte[] memBig = new byte[size];
-            inRecord.setHandle(memPool.insert(memBig, inRecord.toString().length()));
-            //memPool.dump();
+            inRecord.setHandle(memPool.insert(memBig, inRecord.toString()
+                .length()));
+            // memPool.dump();
             hashTable.put(inRecord);
             System.out.println("|" + inRecord.toString() + "|"
                 + " has been added to the Name dataBase. ");
-            
+
         }
         // if not added
         else {
@@ -69,7 +72,10 @@ public class DataBase {
     public void delete(Record inRecord) {
         // hash table remove
         // if removed
-        if (hashTable.remove(inRecord.toString()) != null) {
+        if (hashTable.get(inRecord.toString()) != null) {
+            Handle yes = hashTable.get(inRecord.toString()).getHandle();
+            memPool.remove(yes);
+            hashTable.remove(inRecord.toString());
             System.out.println("|" + inRecord.toString() + "|"
                 + " has been deleted from the Name database. ");
         }
@@ -96,13 +102,26 @@ public class DataBase {
         // element exists check
         if (hashTable.get(inArray[0]) != null) {
 
+            Handle yes = hashTable.get(inArray[0]).getHandle();
+            memPool.remove(yes);
+
             // get copy of data from hash
             Record tempRecord = hashTable.get(inArray[0]);
             // add KVPair to record
             tempRecord.updateData(new KVPair<String, String>(inArray[1],
                 inArray[2]));
+
+
             // update the record in the hash table
             hashTable.update(tempRecord.toString(), tempRecord);
+            
+            int size;
+            for (size = 1; size <= tempRecord.fullString().length(); size = size
+                * 2)
+                ;
+            byte[] memBig = new byte[size];
+            tempRecord.setHandle(memPool.insert(memBig, tempRecord.fullString()
+                .length()));
 
             System.out.println("Updated Record: " + tempRecord.fullString());
         }
@@ -137,8 +156,20 @@ public class DataBase {
             boolean flag = tempRecord.removeData(inArray[1]);
 
             if (flag) {
+                Handle yes = hashTable.get(inArray[0]).getHandle();
+                memPool.remove(yes);
+                
                 // update the record in the hash table
                 hashTable.update(tempRecord.toString(), tempRecord);
+                
+                int size;
+                for (size = 1; size <= tempRecord.fullString().length(); size = size
+                    * 2)
+                    ;
+                byte[] memBig = new byte[size];
+                tempRecord.setHandle(memPool.insert(memBig, tempRecord.fullString()
+                    .length()));
+                
                 System.out.println("Updated Record: " + tempRecord
                     .fullString());
             }

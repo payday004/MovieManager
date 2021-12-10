@@ -26,8 +26,8 @@ public class MemManTest extends TestCase {
         MemMan manager = new MemMan();
         assertNotNull(manager);
         String[] str = new String[3];
-        str[0] = "4";
-        str[1] = "4";
+        str[0] = "32";
+        str[1] = "10";
         str[2] = "sampleInput.txt";
 
         MemMan.main(str);
